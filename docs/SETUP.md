@@ -17,7 +17,7 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ai-dev-2024/vehicle-selector-pro.git
+git clone https://github.com/muhib-karim/vehicle-selector-pro.git
 cd vehicle-selector-pro
 ```
 
@@ -44,7 +44,7 @@ SHOPIFY_STORE_DOMAIN=your-store.myshopify.com  # e.g. vehicle-selector-pro.mysho
 HOST=http://localhost:3000
 # Production only (Fly secrets): DATABASE_URL, REDIS_URL, SECRET_KEY_BASE, ACTIVE_RECORD_ENCRYPTION_* 
 ```
-Set `HOST` to your ngrok URL for local Shopify OAuth testing (`ngrok http 3000`), or keep `http://localhost:3000` for the public local demo routes. For a fresh demo database run `bundle exec rails db:prepare db:seed`; the seed catalog is safe to re-run and currently provides 48 YMMTE configurations, 204 fitments and 40 mapped products. The `/demo` routes do not require Shopify HMAC because they are read-only demo pages; the real `/apps/vehicle-selector/*` App Proxy routes remain HMAC-protected.
+Set `HOST` to your ngrok URL for local Shopify OAuth testing (`ngrok http 3000`), or keep `http://localhost:3000` for the public local demo routes. For a fresh demo database run `bundle exec rails db:prepare db:seed`; the seed catalog is documented as safe to re-run. Current configuration, fitment and product totals were not reverified in this documentation audit. The `/demo` routes do not require Shopify HMAC because they are read-only demo pages; the real `/apps/vehicle-selector/*` App Proxy routes remain HMAC-protected.
 
 **Sidekiq is required** for metafield sync & webhooks — run `bundle exec sidekiq -C config/sidekiq.yml` alongside `rails server` (otherwise `VehicleProductFitment` after_commit enqueue silently warns).
 
