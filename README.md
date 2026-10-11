@@ -1,65 +1,22 @@
-<div align="center">
-
-<img src="docs/assets/banner.svg" alt="Vehicle Selector Pro" width="100%">
-
 # Vehicle Selector Pro
 
-### Fitment intelligence for Shopify automotive stores
+A Rails implementation of cascading Year / Make / Model / Trim / Engine selection for Shopify automotive stores, with a merchant admin interface and storefront integration code.
 
-[![Live Demo](https://img.shields.io/badge/Live_Storefront_Demo-008060?style=flat-square&logo=shopify&logoColor=white)](https://vehicle-selector-pro.fly.dev/demo)
-[![Admin Preview](https://img.shields.io/badge/Live_Admin_Preview-1f6feb?style=flat-square)](https://vehicle-selector-pro.fly.dev/demo/admin)
-[![CI](https://github.com/ai-dev-2024/vehicle-selector-pro/actions/workflows/ci.yml/badge.svg)](https://github.com/ai-dev-2024/vehicle-selector-pro/actions/workflows/ci.yml)
-[![GitHub](https://img.shields.io/badge/View_on_GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ai-dev-2024/vehicle-selector-pro)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-[![Rails](https://img.shields.io/badge/Rails-7.2-CC0000?style=flat-square&logo=rubyonrails&logoColor=white)](https://rubyonrails.org/)
-[![Buy me a coffee](https://img.shields.io/badge/Buy_me_a_coffee-FF5E5B?style=flat-square&logo=kofi&logoColor=white)](https://ko-fi.com/ai_dev_2024)
+[Setup guide](docs/SETUP.md) · [Merchant installation](docs/MERCHANT_INSTALL.md) · [Architecture](#architecture)
 
-</div>
+## Demo status
 
----
+The Fly-hosted public demo could not be reached during the 11 October 2026 check (ERR_TUNNEL_CONNECTION_FAILED). This identifies an access failure, not its server-side cause. The previously linked Pages video/gallery URLs also returned 404. They are not advertised as working demos or a video fallback.
 
-Automotive merchants assign **Year / Make / Model / Trim / Engine** fitment data to their products. Customers filter the catalog with cascading dropdowns and see **"Guaranteed Exact Fit"** badges on product pages — powered by Shopify App Proxy, Product Metafields, and a Theme App Extension.
+Run the seeded demo locally using the setup guide. These are read-only presentation fixtures, not proof of a live Shopify installation. Screenshots below are historical examples. Catalog totals, fitment accuracy and live-store behavior have not been reverified by this audit.
 
-**[Live storefront demo](https://vehicle-selector-pro.fly.dev/demo)** · **[Live admin preview](https://vehicle-selector-pro.fly.dev/demo/admin)** · **[Demo video](#demo)** · **[Setup guide](docs/SETUP.md)** · **[Merchant installation](docs/MERCHANT_INSTALL.md)** · **[Architecture](#architecture)**
+## Verification scope
 
-<div align="center">
+Review the current CI output and reproduce the documented tests before relying on a release. A green check does not establish Shopify OAuth, billing, webhooks or storefront behavior in your store. Billing features and an installation flow need a real configured test store and should be tested with appropriate development-store safeguards, not accidental production charges.
 
-| | | | |
-|---|---|---|---|
-| **48** YMMTE configurations | **402** verified fitments | **74** mapped products | **25** brands represented |
+## Implementation areas
 
-</div>
-
-
-> **Installing on your own store** — this is a custom (unlisted) app, so Shopify requires installation through the Partners distribution link. Open an issue or request access and we will generate an install link for your store. The live demo above needs no installation.
-
----
-
-> **Built entirely with free AI tools.** This project was designed, coded, and documented using no-cost AI assistance end to end — no paid AI models or paid tools were used anywhere in its development. Everything you see was produced with accessible, free tooling, which is why the potential for further growth is so large: with paid, frontier AI models and commercial tooling, this foundation can be extended into a far richer, production-grade solution with ease.
->
-> **Built at the ceiling of a consumer notebook.** The entire project — the Rails app, the Shopify wiring, the storefront, the diagrams, this README, and both narrated demo videos — was designed, coded, tested, and rendered on a single machine: an **ASUS ZenBook UX433FA**, a 2018-vintage, **netbook-class consumer laptop** (Intel Core i7-8565U @ 1.80 GHz, 16 GB RAM, Intel UHD 620 integrated graphics — no GPU, no developer workstation, no cloud IDE; every frame of both videos was rendered on the CPU). This is not a developer tool — it is the kind of everyday notebook you would buy for browsing and documents. That ceiling was set by the hardware and free tooling, not by ambition — which is exactly why the headroom is so large, and why the case for allocating proper development hardware (a powerful laptop or workstation with a GPU) is so strong: with the right resources and paid frontier models, the same foundation leaps a level.
-
-
----
-
-## Demo
-
-Two narrated walkthroughs — a merchant command-center tour and the shopper experience — cut from the live app against the shop-drawing redesign. Each video has its own distinct voiceover (male for merchants, female for shoppers) and its own music bed, with tight scene pacing — no dead air.
-
-<div align="center">
-
-**▶ Click a poster to play — each walkthrough opens in GitHub's built-in video player:**
-
-| | |
-|---|---|
-| <a href="https://ai-dev-2024.github.io/vehicle-selector-pro/demo/vehicle-selector-pro-merchant.mp4"><img src="https://ai-dev-2024.github.io/vehicle-selector-pro/demo/vehicle-selector-merchant-poster.jpg" alt="Merchant walkthrough video — click to play" width="100%"></a><sup>**▶ Merchant walkthrough** — 1:29, male voiceover</sup> | <a href="https://ai-dev-2024.github.io/vehicle-selector-pro/demo/vehicle-selector-pro-shopper.mp4"><img src="https://ai-dev-2024.github.io/vehicle-selector-pro/demo/vehicle-selector-shopper-poster.jpg" alt="Shopper walkthrough video — click to play" width="100%"></a><sup>**▶ Shopper walkthrough** — 1:35, female voiceover</sup> |
-
-[Video gallery page](https://ai-dev-2024.github.io/vehicle-selector-pro/demo/videos.html) · [Narration script](docs/DEMO_SCRIPT.md) · [Interactive walkthrough](https://ai-dev-2024.github.io/vehicle-selector-pro/demo/index.html) · [Live storefront demo](https://vehicle-selector-pro.fly.dev/demo)
-
-</div>
-
----
-## Features
+These areas are described by the existing project documentation. This link-containment pass has not independently runtime-tested each one.
 
 - **Cascading storefront widget** — Year, Make, Model, Trim, Engine dropdowns driven by HMAC-signed App Proxy queries
 - **Product fitment badges** — Guaranteed Exact Fit / Does NOT Fit / Universal Fit on any product page
@@ -70,18 +27,18 @@ Two narrated walkthroughs — a merchant command-center tour and the shopper exp
 - **Plans & billing** — Free / Pro / Pro Plus tiers via the Shopify Billing API with 14-day trials; plan ceiling gates bulk imports
 - **Metafield sync** — fitment JSON synced to `custom.vehicle_fitment` via `metafieldsSet` in batches of 25 (debounced, resilient)
 - **Webhook pipeline** — `products/*`, `app/uninstalled`, `shop/update` processed asynchronously via Sidekiq, replay-protected
-- **Production-grade ops** — Solid Cache, ETag caching, structured JSON logging, Sentry, CSP headers, deep health checks, ops runbook
+- **Operations features** — Solid Cache, ETag caching, structured JSON logging, Sentry, CSP headers, deep health checks, ops runbook
 - **Multi-tenant** — per-shop data isolation, encrypted tokens, HMAC-SHA256 verification on every request
 
 ---
 
 ## Screenshots
 
-### Storefront (live demo)
+### Historical storefront captures
 
 <div align="center">
 
-**Home — cascading Year / Make / Model / Trim / Engine selector with live fitment data and shop-by-category**
+**Home — cascading Year / Make / Model / Trim / Engine selector with seeded fitment data and shop-by-category**
 
 <img src="demo/autoplay/frames_live/04_storefront_home.png" alt="Storefront home with catalog header, cascading vehicle selector widget, shop-by-category tiles, and live fitment data" width="100%">
 
@@ -99,7 +56,7 @@ Two narrated walkthroughs — a merchant command-center tour and the shopper exp
 
 </div>
 
-### Merchant admin (live preview)
+### Historical merchant preview captures
 
 <div align="center">
 
@@ -109,11 +66,11 @@ Two narrated walkthroughs — a merchant command-center tour and the shopper exp
 
 **Vehicle library — the YMMTE database with cascading filters**
 
-<img src="demo/autoplay/frames_live/02_vehicles.png" alt="Admin vehicle library with 48 Year/Make/Model/Trim/Engine configurations across Ford, Chevrolet, Toyota, Jeep, BMW, RAM, Honda and Subaru" width="100%">
+<img src="demo/autoplay/frames_live/02_vehicles.png" alt="Historical admin vehicle library with Year/Make/Model/Trim/Engine configurations across Ford, Chevrolet, Toyota, Jeep, BMW, RAM, Honda and Subaru" width="100%">
 
 **Product fitment matrix — every product-to-vehicle mapping with sync status**
 
-<img src="demo/autoplay/frames_live/03_fitment_rules.png" alt="Product fitment matrix with 402 product-to-vehicle mappings, direct-fit and universal fits, sync badges, and edit controls" width="100%">
+<img src="demo/autoplay/frames_live/03_fitment_rules.png" alt="Product fitment matrix with historical product-to-vehicle mappings, direct-fit and universal fits, sync badges, and edit controls" width="100%">
 
 **Widget & Garage configuration**
 
@@ -141,7 +98,7 @@ Two narrated walkthroughs — a merchant command-center tour and the shopper exp
 
 </div>
 
-Every screenshot above is a live capture of the running app — see the **[live storefront demo](https://vehicle-selector-pro.fly.dev/demo)** and the **[live admin preview](https://vehicle-selector-pro.fly.dev/demo/admin)**.
+The screenshots are historical captures of the seeded presentation pages. They do not establish current deployment availability, catalog totals or live-store behavior.
 
 ---
 
@@ -210,16 +167,10 @@ Full system diagrams, data model, and request lifecycles: **[docs/ARCHITECTURE.m
 
 ## Quick start
 
-### Try it now — no install required
-
-**[Live storefront demo →](https://vehicle-selector-pro.fly.dev/demo)** — cascading Year/Make/Model/Trim/Engine widget with guaranteed-fit badges against live data.
-
-**[Live admin preview →](https://vehicle-selector-pro.fly.dev/demo/admin)** — dashboard, fitment matrix ([fitments](https://vehicle-selector-pro.fly.dev/demo/admin/fitments)), vehicle library ([vehicles](https://vehicle-selector-pro.fly.dev/demo/admin/vehicles)), widget settings ([settings](https://vehicle-selector-pro.fly.dev/demo/admin/settings)), bulk CSV import ([imports](https://vehicle-selector-pro.fly.dev/demo/admin/imports)), and the sync monitor ([sync](https://vehicle-selector-pro.fly.dev/demo/admin/sync)).
-
 ### Local development
 
 ```bash
-git clone https://github.com/ai-dev-2024/vehicle-selector-pro.git
+git clone https://github.com/muhib-karim/vehicle-selector-pro.git
 cd vehicle-selector-pro
 bundle install
 cp .env.example .env    # fill in SHOPIFY_API_KEY / SHOPIFY_API_SECRET / SHOPIFY_STORE_DOMAIN
@@ -249,7 +200,7 @@ Then open `http://localhost:3000/demo` for the public storefront preview, or `ht
 
 **Shipped recently** — full history in [CHANGELOG.md](CHANGELOG.md):
 
-- **v1.3.3 — Catalog wave 5** — 20 more products (74 total, 402 fitments) balancing Towing, Electrical, Wipers and Lighting coverage with real photography
+- **v1.3.3 — Catalog wave 5** — Historical catalog expansion for Towing, Electrical, Wipers and Lighting. Current totals and photography provenance not reverified.
 - **v1.3.2 — Catalog wave 4 + demo experience** — 20 new products (54 total, 318 fitments) with real photography, a demo billing walkthrough with simulated plan switching, and smoother merchant UI motion
 - **v1.3.1 — Rails 7.1.6 → 7.2.3.2 security upgrade** — resolves GHSA-v55j-83pf-r9cq, GHSA-89vf-4333-qx8v and GHSA-2j26-frm8-cmj9 (now removed from the audit whitelist). Plan retained for reference: [docs/RAILS_7_2_UPGRADE_PLAN.md](docs/RAILS_7_2_UPGRADE_PLAN.md)
 - **v1.3.0 — Storefront analytics** — daily checks, fit rate, and checks-by-make dashboard with 7/30/90-day ranges
@@ -293,7 +244,7 @@ If the demo or the project saved you time or inspired an idea, you can **buy me 
 
 [![Buy me a coffee](https://img.shields.io/badge/Support_on_Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/ai_dev_2024)
 
-[**Support the project on Ko-fi →**](https://ko-fi.com/ai_dev_2024) · [**Open a support issue →**](https://github.com/ai-dev-2024/vehicle-selector-pro/issues/new?labels=support&template=blank_issue)
+[**Support the project on Ko-fi →**](https://ko-fi.com/ai_dev_2024) · [**Open a support issue →**](https://github.com/muhib-karim/vehicle-selector-pro/issues/new?labels=support&template=blank_issue)
 
 </div>
 
@@ -307,6 +258,6 @@ This project is released under the [MIT License](LICENSE) © 2026 Vehicle Select
 
 [![MIT License](https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge)](LICENSE)
 
-[**Read the license →**](LICENSE) · [**Report an issue →**](https://github.com/ai-dev-2024/vehicle-selector-pro/issues/new?labels=bug&template=bug_report.md) · [**Request a feature →**](https://github.com/ai-dev-2024/vehicle-selector-pro/issues/new?labels=enhancement&template=feature_request.md)
+[**Read the license →**](LICENSE) · [**Report an issue →**](https://github.com/muhib-karim/vehicle-selector-pro/issues/new?labels=bug&template=bug_report.md) · [**Request a feature →**](https://github.com/muhib-karim/vehicle-selector-pro/issues/new?labels=enhancement&template=feature_request.md)
 
 </div>
