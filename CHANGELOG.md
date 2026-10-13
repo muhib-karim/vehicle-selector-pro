@@ -184,4 +184,4 @@ live Shopify development store.
 - Mounted `ShopifyApp::Engine` after application routes so webhook POSTs reach
   the app's controllers instead of raising `NoWebhookHandler`.
 
-[1.0.0]: https://github.com/ai-dev-2024/vehicle-selector-pro/releases/tag/v1.0.0
+[1.0.0]: https://github.com/muhib-karim/vehicle-selector-pro/releases/tag/v1.0.0

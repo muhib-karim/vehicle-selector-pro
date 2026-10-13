@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ai-dev-2024/vehicle-selector-pro.git"
+    "url": "git+https://github.com/muhib-karim/vehicle-selector-pro.git"
   },
   "keywords": [
     "shopify",
@@ -18,7 +18,7 @@
     "vehicle-fitment",
     "demo"
   ],
-  "homepage": "https://github.com/ai-dev-2024/vehicle-selector-pro#readme",
+  "homepage": "https://github.com/muhib-karim/vehicle-selector-pro#readme",
   "dependencies": {
     "playwright": "^1.62.1",
     "puppeteer": "^25.9.0"

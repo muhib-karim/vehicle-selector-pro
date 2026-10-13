@@ -2,7 +2,7 @@ name: Pages — Report
 
 # Publishes the client-facing project report (PDF + DOCX) to GitHub Pages.
 # The repo's Pages source is set to "GitHub Actions" so this deploy-pages
-# workflow is what actually publishes https://ai-dev-2024.github.io/vehicle-selector-pro/
+# workflow is what actually publishes https://muhib-karim.github.io/vehicle-selector-pro/
 
 on:
   push:

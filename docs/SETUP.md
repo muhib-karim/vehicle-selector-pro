@@ -17,7 +17,7 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ai-dev-2024/vehicle-selector-pro.git
+git clone https://github.com/muhib-karim/vehicle-selector-pro.git
 cd vehicle-selector-pro
 ```
 

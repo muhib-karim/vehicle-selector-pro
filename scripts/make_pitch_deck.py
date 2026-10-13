@@ -26,7 +26,7 @@ DARK = "#282A2E"
 GREY = "#6E6E6E"
 LIGHT = "#FBEEE9"
 
-REPO = "https://github.com/ai-dev-2024/vehicle-selector-pro"
+REPO = "https://github.com/muhib-karim/vehicle-selector-pro"
 DEMO = "https://vehicle-selector-pro.fly.dev/demo"
 ADMIN = "https://vehicle-selector-pro.fly.dev/demo/admin"
 APP = "https://vehicle-selector-pro.fly.dev"
@@ -72,7 +72,7 @@ SLIDES = [
         "kicker": "READY WHEN YOU ARE",
         "title": "See it live — watch it run",
         "lines": ["Try the live storefront demo", "Explore the merchant admin", "Open the repository", "Watch the two narrated walkthroughs"],
-        "links": [DEMO, ADMIN, REPO, "https://ai-dev-2024.github.io/vehicle-selector-pro/demo/videos.html"],
+        "links": [DEMO, ADMIN, REPO, "https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html"],
     },
 ]
 

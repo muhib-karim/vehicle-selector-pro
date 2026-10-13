@@ -3,7 +3,7 @@
 **Project**: Vehicle Selector Pro (Shopify Automotive Fitment & Storefront Engine)  
 **Deliverable Version**: Production 1.0  
 **Stack**: Ruby on Rails 7.1, Shopify Theme App Extension (Liquid + ES6 JS), Shopify GraphQL Admin API, PostgreSQL / SQLite3, Redis / Sidekiq, Polaris UI  
-**GitHub Repository**: [https://github.com/ai-dev-2024/vehicle-selector-pro](https://github.com/ai-dev-2024/vehicle-selector-pro)  
+**GitHub Repository**: [https://github.com/muhib-karim/vehicle-selector-pro](https://github.com/muhib-karim/vehicle-selector-pro)  
 **Deployment Target**: Fly.io (https://vehicle-selector-pro.fly.dev)
 
 ---
@@ -31,7 +31,7 @@ By combining a **normalized, high-speed multi-tenant local cache** with **Shopif
    - Full evidence trail in [`REQUIREMENTS-VERIFICATION.md`](REQUIREMENTS-VERIFICATION.md).
 
 3. **Demo Assets — what to submit:**
-   - **Inline GitHub walkthroughs:** the two narrated videos play directly on the repository homepage from GitHub attachment assets; the [video gallery](https://ai-dev-2024.github.io/vehicle-selector-pro/demo/videos.html) is the fullscreen alternative.
+   - **Inline GitHub walkthroughs:** the two narrated videos play directly on the repository homepage from GitHub attachment assets; the [video gallery](https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html) is the fullscreen alternative.
    - **Recorded MP4 fallback:** [`demo/Vehicle_Selector_Pro_Demo_v3.mp4`](demo/Vehicle_Selector_Pro_Demo_v3.mp4) + script [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
    - `/demo` and `/demo/admin` are the current public live previews. `/storefront_preview` and `admin_preview` are development-only legacy routes for local re-recording.
 
@@ -52,7 +52,7 @@ Use the professional voiceover script in [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIP
 - **Continuous read version** for single-take recording
 - **Recording setup** recommendations (OBS Studio + mic, or Loom)
 
-The narrated walkthroughs play inline on the [GitHub repository homepage](https://github.com/ai-dev-2024/vehicle-selector-pro#demo). For fullscreen playback, use the [GitHub Pages video gallery](https://ai-dev-2024.github.io/vehicle-selector-pro/demo/videos.html). The original MP4 remains available at [`demo/Vehicle_Selector_Pro_Demo_v3.mp4`](demo/Vehicle_Selector_Pro_Demo_v3.mp4).
+The narrated walkthroughs play inline on the [GitHub repository homepage](https://github.com/muhib-karim/vehicle-selector-pro#demo). For fullscreen playback, use the [GitHub Pages video gallery](https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html). The original MP4 remains available at [`demo/Vehicle_Selector_Pro_Demo_v3.mp4`](demo/Vehicle_Selector_Pro_Demo_v3.mp4).
 
 ---
 

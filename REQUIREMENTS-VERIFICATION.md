@@ -20,7 +20,7 @@ current automated test suite — not just present in code.
 | 6 | App Proxy endpoints (filter options + matching product IDs) | ✅ Verified | All 8 endpoints returned correct data with valid HMAC signatures; invalid/missing signatures → 401 |
 | 7 | GraphQL Admin API for syncing | ✅ Verified | `Shopify::GraphQLClient` with retry/throttle handling; product creation + metafield sync executed live |
 | 8 | Webhooks processed asynchronously (ActiveJob + Sidekiq) | ✅ Verified | Signed POST → 200; tampered → 401; jobs run on the Sidekiq queue; replayed deliveries deduped via `webhook_deliveries` |
-| 9 | Git repository containing app + extension | ✅ Verified | https://github.com/ai-dev-2024/vehicle-selector-pro |
+| 9 | Git repository containing app + extension | ✅ Verified | https://github.com/muhib-karim/vehicle-selector-pro |
 | 10 | README with setup instructions | ✅ Verified | `README.md` + `docs/SETUP.md` + `docs/DEPLOYMENT.md` |
 | 11 | 2–3 minute screen recording | ✅ Verified | Two narrated walkthroughs (`demo/vehicle-selector-pro-merchant.mp4` 1:29, `demo/vehicle-selector-pro-shopper.mp4` 1:35) playable directly from the repo home page |
 

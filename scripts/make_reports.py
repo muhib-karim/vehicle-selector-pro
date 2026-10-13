@@ -233,8 +233,8 @@ TECH_ROWS = [
 ]
 
 VIDEO_LINKS = [
-    ("Merchant command center", "https://ai-dev-2024.github.io/vehicle-selector-pro/demo/vehicle-selector-pro-merchant.mp4"),
-    ("Shopper experience", "https://ai-dev-2024.github.io/vehicle-selector-pro/demo/vehicle-selector-pro-shopper.mp4"),
+    ("Merchant command center", "https://muhib-karim.github.io/vehicle-selector-pro/demo/vehicle-selector-pro-merchant.mp4"),
+    ("Shopper experience", "https://muhib-karim.github.io/vehicle-selector-pro/demo/vehicle-selector-pro-shopper.mp4"),
 ]
 
 METRICS = [
@@ -466,7 +466,7 @@ def build_pdf() -> None:
     story.append(Paragraph(DATE_LINE, PS(fontSize=11, textColor=GREY, spaceAfter=12)))
     for label, url in [("Live storefront demo", "https://vehicle-selector-pro.fly.dev/demo"),
                        ("Live merchant admin", "https://vehicle-selector-pro.fly.dev/demo/admin"),
-                       ("Source repository", "https://github.com/ai-dev-2024/vehicle-selector-pro")]:
+                       ("Source repository", "https://github.com/muhib-karim/vehicle-selector-pro")]:
         story.append(Paragraph(
             f"<b>{label}:</b> <a href='{url}'><font color='{ACCENT_HEX}'>{url}</font></a>",
             PS(fontSize=10, leading=15)))
@@ -665,7 +665,7 @@ def build_pdf() -> None:
     # 13 Conclusion
     story += sec(13, "Conclusion", P(CLOSING), Spacer(1, 12),
                 Paragraph("Vehicle Selector Pro &nbsp;·&nbsp; "
-                          "<a href='https://github.com/ai-dev-2024/vehicle-selector-pro'><font color='%s'>github.com/ai-dev-2024/vehicle-selector-pro</font></a> &nbsp;·&nbsp; "
+                          "<a href='https://github.com/muhib-karim/vehicle-selector-pro'><font color='%s'>github.com/muhib-karim/vehicle-selector-pro</font></a> &nbsp;·&nbsp; "
                           "<a href='https://vehicle-selector-pro.fly.dev'><font color='%s'>vehicle-selector-pro.fly.dev</font></a>"
                           % (ACCENT_HEX, ACCENT_HEX),
                           PS(fontSize=9, textColor=GREY)))

@@ -41,7 +41,7 @@ The application is **live on Fly.io**, **installed on a real Shopify development
 
 | Item | Status |
 |---|---|
-| **URL** | https://github.com/ai-dev-2024/vehicle-selector-pro |
+| **URL** | https://github.com/muhib-karim/vehicle-selector-pro |
 | **Default branch** | `main` |
 | **Commits** | 9 (clean history, meaningful messages) |
 | **README** | Professional product homepage with screenshots, features, quick start, tech stack, docs links |
@@ -142,7 +142,7 @@ Scripts:
 | | |
 |---|---|
 | Live app | https://vehicle-selector-pro.fly.dev |
-| GitHub | https://github.com/ai-dev-2024/vehicle-selector-pro |
+| GitHub | https://github.com/muhib-karim/vehicle-selector-pro |
 | Install | https://vehicle-selector-pro.fly.dev/login?shop=vehicle-selector-pro.myshopify.com |
 | Health | https://vehicle-selector-pro.fly.dev/up |
 | Demo video | `demo/Vehicle_Selector_Pro_Demo_v3.mp4` |

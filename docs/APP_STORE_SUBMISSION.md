@@ -73,7 +73,7 @@ flyctl deploy   # after adding a /privacy route, or:
 
 **Screenshots (already produced, in `demo/autoplay/frames_live/`):** dashboard with coverage stats, vehicle library, fitment matrix, analytics dashboard, plans & billing, widget settings, bulk import, storefront widget + garage + PDP badges.
 
-**Demo video:** [Inline narrated walkthroughs on the GitHub repository](https://github.com/ai-dev-2024/vehicle-selector-pro#demo) · [fullscreen GitHub Pages video gallery](https://ai-dev-2024.github.io/vehicle-selector-pro/demo/videos.html). The original MP4 is also included at `demo/Vehicle_Selector_Pro_Demo_v3.mp4`.
+**Demo video:** [Inline narrated walkthroughs on the GitHub repository](https://github.com/muhib-karim/vehicle-selector-pro#demo) · [fullscreen GitHub Pages video gallery](https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html). The original MP4 is also included at `demo/Vehicle_Selector_Pro_Demo_v3.mp4`.
 
 ## 5. [Dashboard] Review notes (paste into "Notes for reviewers")
 

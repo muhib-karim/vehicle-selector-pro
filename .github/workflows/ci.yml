@@ -63,11 +63,17 @@ jobs:
           bundle audit check --update
 
   docs-links:
-    name: Markdown link check
+    name: Docs + storefront JS checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Verify README + docs links
         run: python3 scripts/check_links.py
+
+      - name: Banner SVG is well-formed
+        run: python3 -c "import xml.dom.minidom; xml.dom.minidom.parse('docs/banner.svg')"
+
+      - name: Theme extension JS syntax check
+        run: node --check extensions/vehicle-selector-pro-extension/assets/vehicle-selector.js
 

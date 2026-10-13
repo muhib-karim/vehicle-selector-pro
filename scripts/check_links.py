@@ -84,3 +84,7 @@ print(f"Checked {len(FILES)} files, {checked} markdown links (code spans ignored
 print(f"Real problems: {len(problems)}\n")
 for md, url, why in problems:
     print(f"[{why}] {md} : {url}")
+# Missing local files/anchors are deterministic -> fail CI. External HTTP
+# failures are reported but not fatal (third-party hosts flap).
+local = [p for p in problems if not p[2].startswith("HTTP")]
+raise SystemExit(1 if local else 0)
