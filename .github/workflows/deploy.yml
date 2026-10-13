@@ -1,8 +1,8 @@
 name: Deploy
 
+# Manual only: the Fly.io app must be provisioned and FLY_API_TOKEN set before deploying.
+# Running this on every push failed with "app not found" while no app exists.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
