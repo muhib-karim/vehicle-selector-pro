@@ -2,14 +2,10 @@
 
 All notable changes to Vehicle Selector Pro are documented here.
 
-## [1.0.0] - 2026-10-21
+## [1.4.0] - 2026-10-22
 
-CI repair and release-readiness pass, prepared under the version name the
-release brief asked for. **Version clash, unresolved:** the repository already
-has a `v1.0.0` tag and release (2026-08-30, the `[1.0.0]` section further
-down) and a `v1.3.0` tag. The maintainer has to choose between re-pointing
-`v1.0.0` and publishing this entry under a new number such as `1.4.0`.
-`HANDOFF.md` has the details.
+CI repair and release-readiness pass. v1.4.0 follows v1.3.0; the existing
+v1.0.0 tag and release (2026-08-30) are left untouched.
 
 ### Fixed
 - **Red CI on Dependabot updates.** With no `.ruby-version` and
@@ -241,4 +237,5 @@ live Shopify development store.
 - Mounted `ShopifyApp::Engine` after application routes so webhook POSTs reach
   the app's controllers instead of raising `NoWebhookHandler`.
 
+[1.4.0]: https://github.com/muhib-karim/vehicle-selector-pro/releases/tag/v1.4.0
 [1.0.0]: https://github.com/muhib-karim/vehicle-selector-pro/releases/tag/v1.0.0

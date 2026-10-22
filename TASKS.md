@@ -1,18 +1,12 @@
 # Tasks
 
-Open follow-ups after v1.0.0. Where an item has an entry in an ignore file,
+Open follow-ups after v1.4.0. Where an item has an entry in an ignore file,
 delete that entry when the item lands.
 
-- [ ] **BLOCKER for tagging: the version name.** The release brief says the
-  coordinator tags `v1.0.0` after merge, but `v1.0.0` already exists (tag and
-  GitHub release "v1.0.0 — Production release", 2026-08-30, commit
-  `fc7602d`), as do `v1.3.0` and the old `[1.0.0]` CHANGELOG section. Moving
-  a published tag rewrites public history, so this branch does not do it.
-  The coordinator chooses one of:
-  1. publish as a new version (e.g. `v1.4.0`): rename the top CHANGELOG
-     heading and the README/HANDOFF/PROJECT_BRAIN mentions, or
-  2. delete and re-create `v1.0.0` at the merge commit, and retitle the old
-     2026-08-30 CHANGELOG section and its link reference.
+- [x] **Version name (resolved 2026-10-22).** `v1.0.0` already existed (tag and
+  release, 2026-08-30), so the coordinator chose to publish this release as
+  `v1.4.0`, the next version after `v1.3.0`. Existing tags stay as they are.
+  The coordinator tags `v1.4.0` after merge.
 - [ ] **Re-pin the architecture diagram.** `docs/architecture.archify.json`
   cites sources at branch commit `7f22ac8`. After merge, set
   `meta.repository.revision` to the merge commit and re-render with Archify

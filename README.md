@@ -194,7 +194,7 @@ See [PROJECT-STRUCTURE.md](PROJECT-STRUCTURE.md) for the full tree.
 
 - **Rails 8 upgrade.** Rails 7.2 left security support on 2026-08-09. No advisories are open against 7.2.3.2, but the Rails 8 upgrade is the next tracked dependency change (see [TASKS.md](TASKS.md)).
 
-Release history: [CHANGELOG.md](CHANGELOG.md). Handoff notes for the v1.0.0 release: [HANDOFF.md](HANDOFF.md).
+Release history: [CHANGELOG.md](CHANGELOG.md). Handoff notes for the v1.4.0 release: [HANDOFF.md](HANDOFF.md).
 
 ## Documentation
 
