@@ -39,6 +39,8 @@ The app has three parts:
 - **Storefront analytics.** Daily fitment checks, fit rate, and checks-by-make over 7/30/90-day ranges, built from async daily aggregates.
 - **Ops.** `/up` and `/health/deep` health checks, structured JSON logging, Sentry, CSP and security headers, Rack::Attack throttling, encrypted shop tokens.
 
+<a id="demo"></a>
+
 ## Showcase
 
 Two narrated walkthroughs, one per audience. Click a poster to open the video gallery.
@@ -76,7 +78,7 @@ Narrated walkthrough videos and the project report are published on GitHub Pages
 
 ## Quick start
 
-Requirements: Ruby 3.4.11 (pinned in [`.ruby-version`](.ruby-version); `rbenv`, `asdf`, `mise` and `chruby` all read it), Bundler 2.6, and SQLite for development. Redis is needed only if you run Sidekiq jobs.
+Requirements: Ruby 3.4.11 (pinned in [`.ruby-version`](.ruby-version), which `rbenv` reads as-is; `asdf`, `mise` and `chruby` can be configured to), Bundler 2.6, and SQLite for development. Redis is needed only if you run Sidekiq jobs.
 
 ```bash
 git clone https://github.com/muhib-karim/vehicle-selector-pro.git
@@ -134,7 +136,7 @@ Deeper diagrams, the data model, and request lifecycles are in [docs/ARCHITECTUR
 
 ## Testing
 
-The suite has 118 RSpec examples in 23 spec files (models, services, jobs, requests, config) plus 13 Minitest App Proxy integration tests. `spec/config/toolchain_consistency_spec.rb` fails if the Gemfile, lockfile, Dockerfile or CI drift from `.ruby-version`.
+The suite has 119 RSpec examples in 23 spec files (models, services, jobs, requests, config) plus 13 Minitest App Proxy integration tests. `spec/config/toolchain_consistency_spec.rb` fails if the Gemfile, lockfile, Dockerfile or CI drift from `.ruby-version`.
 
 ```bash
 bundle exec rails db:prepare RAILS_ENV=test

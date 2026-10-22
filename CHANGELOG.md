@@ -4,9 +4,12 @@ All notable changes to Vehicle Selector Pro are documented here.
 
 ## [1.0.0] - 2026-10-21
 
-First tagged public release. The `1.x.y` headings below were internal
-milestone numbers used before the repository had tagged releases; `v1.0.0`
-is the first version published as a GitHub release.
+CI repair and release-readiness pass, prepared under the version name the
+release brief asked for. **Version clash, unresolved:** the repository already
+has a `v1.0.0` tag and release (2026-08-30, the `[1.0.0]` section further
+down) and a `v1.3.0` tag. The maintainer has to choose between re-pointing
+`v1.0.0` and publishing this entry under a new number such as `1.4.0`.
+`HANDOFF.md` has the details.
 
 ### Fixed
 - **Red CI on Dependabot updates.** With no `.ruby-version` and
@@ -31,10 +34,16 @@ is the first version published as a GitHub release.
 
 ### Added
 - `spec/config/toolchain_consistency_spec.rb`: fails if the running Ruby,
-  Gemfile, lockfile, openssl pin or Dockerfile drift from `.ruby-version`.
+  Gemfile, lockfile, openssl pin or Dockerfile (`FROM` tag, and copying
+  `.ruby-version` before `bundle install`) drift from `.ruby-version`.
+- Docker image build job in CI; the build would otherwise have broken on the
+  new `ruby file:` Gemfile line, which no CI job exercised.
 - SimpleCov line + branch coverage; CI uploads the `coverage-report` artifact.
-- Brakeman in the Dependency audit job, with reasons for each accepted
-  warning in `config/brakeman.ignore`.
+- Brakeman (pinned to 8.1.0) in the Dependency audit job, with reasons for
+  each accepted warning in `config/brakeman.ignore`; bundler-audit pinned to 0.9.3.
+- Dependabot ignores the `openssl` gem, which follows `.ruby-version`.
+- CI: read-only `permissions`, a concurrency group, and gitleaks tarball
+  checksum verification.
 - Secret-scan job (gitleaks 8.28.0, full history); historical dummy-secret
   hits pinned by fingerprint in `.gitleaksignore`.
 - Interactive architecture diagram (Archify) on GitHub Pages, sourced from
@@ -46,7 +55,7 @@ is the first version published as a GitHub release.
   match Rails 7.2.3.2 any more.
 
 ### Verification
-- 118 RSpec examples, 0 failures; 13 Minitest integration runs, 0 failures;
+- 119 RSpec examples, 0 failures; 13 Minitest integration runs, 0 failures;
   line coverage 51.1%, branch 51.06%. RuboCop clean, zeitwerk green,
   bundler-audit and Brakeman clean (with the documented ignores), gitleaks clean.
 

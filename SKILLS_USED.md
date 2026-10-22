@@ -17,6 +17,6 @@ Which agent skill drove which change. Newest release first.
 | impeccable | Polish pass on the Pages landing page: removed the eyebrow kicker, AA-contrast accent, dark mode, `:focus-visible`, selection colour, reduced motion; detector run clean |
 | ui-ux-pro-max | UX guideline lookups (focus states, contrast) behind the same page; 44 px button height |
 | verification-before-completion | Nothing claimed without output: local runs, CI run ids and RUN/INFERRED labels in `HANDOFF.md` |
-| requesting-code-review | Independent review of the branch diff before the final push |
+| requesting-code-review | One independent reviewer on the full branch diff. It caught the Dockerfile `.ruby-version` copy bug and the existing `v1.0.0` tag; fixes are listed in `HANDOFF.md` |
 
 Not used, and why: understand / graphify (heavy whole-repo graph builds on a memory-tight machine; archify's source-cited diagram covered the architecture section), playwright (headless Chromium screenshots were enough for one static page), subagent-driven-development (the machine forbids parallel subagents).

@@ -17,12 +17,14 @@ for Year/Make/Model/Trim/Engine fitment. Tests: `ruby spec/test_runner.rb`
   `config/brakeman.ignore` and `.gitleaksignore`. Never add an entry without one.
 
 ## Status
-v1.0.0 upgrade branch `upgrade/v1.0.0`: CI root cause fixed (Dependabot
-resolved gems for Ruby 4.0 because no Ruby was pinned), coverage artifact,
-Brakeman and gitleaks jobs added. Docs refresh in progress.
+Branch `upgrade/v1.0.0` is complete: CI root cause fixed (Dependabot resolved
+gems for Ruby 4.0 because no Ruby was pinned); coverage artifact, Brakeman,
+gitleaks and Docker build jobs; docs refreshed; independent code review
+addressed. Unresolved: a `v1.0.0` tag already exists (2026-08-30), see TASKS.md.
 
 ## Next step
-Finish README/CHANGELOG/SKILLS_USED/HANDOFF, push via the gated push script,
-get CI green. After merge, the coordinator tags v1.0.0.
+Coordinator: pick the release version (TASKS.md blocker), merge, tag, then
+re-pin the Archify diagram to the merge commit.
 
 ## Session log
+2026-10-22 01:20Z claude-opus-5-5: v1.0.0 branch: Ruby 3.4.11 toolchain fix, CI coverage/Brakeman/gitleaks/Docker jobs, README/Pages/architecture docs, review fixes. Next: coordinator resolves the v1.0.0 tag clash, merges, tags.
