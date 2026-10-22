@@ -1,0 +1,14 @@
+# gitleaks ignore list (fingerprints: commit:file:rule:line).
+#
+# Historical only: early commits used a dummy test value
+# ("...test_api_secret_...") as the ShopifyApp secret, both in a hand-written
+# mock in spec/spec_helper.rb and as the ENV.fetch fallback in
+# config/initializers/shopify_app.rb. It was never a real Shopify credential,
+# and both were later removed (the initializer now raises when the secret is
+# missing); history is never rewritten
+# (no force-push), so these exact findings are pinned here. Any new finding,
+# including the same string in another commit or file, still fails CI.
+eb01307a35b49b8c69430b3b89e07a1c49944e90:spec/spec_helper.rb:generic-api-key:46
+3b08721d028883cc18e905ad123a6cfab1f0aef0:spec/spec_helper.rb:generic-api-key:48
+cde975f66f903ca1b9fb1780cd966aa00ba550ae:spec/spec_helper.rb:generic-api-key:48
+cde975f66f903ca1b9fb1780cd966aa00ba550ae:config/initializers/shopify_app.rb:generic-api-key:23

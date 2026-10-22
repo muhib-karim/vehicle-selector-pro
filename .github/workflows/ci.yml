@@ -30,6 +30,14 @@ jobs:
       - name: Full test suite (RSpec + App Proxy integration)
         run: ruby spec/test_runner.rb
 
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          if-no-files-found: error
+
       - name: Eager-load check (zeitwerk)
         run: bundle exec rails zeitwerk:check
 
@@ -49,7 +57,7 @@ jobs:
         run: bundle exec rubocop
 
   security:
-    name: Dependency audit
+    name: Dependency audit (bundler-audit + Brakeman)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -64,6 +72,27 @@ jobs:
         run: |
           gem install bundler-audit --no-document
           bundle audit check --update
+
+      # Ignored warnings and the reason for each live in config/brakeman.ignore.
+      - name: Brakeman
+        run: |
+          gem install brakeman --no-document
+          brakeman --quiet --no-pager
+
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks (full history)
+        env:
+          GITLEAKS_VERSION: 8.28.0
+        run: |
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
+          ./gitleaks git --redact --verbose --exit-code 1 .
 
   docs-links:
     name: Docs + storefront JS checks
