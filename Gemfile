@@ -1,11 +1,13 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby ">= 3.2.0"
+# .ruby-version is the single source of truth for the Ruby toolchain: CI
+# (setup-ruby), the Dockerfile and Dependabot all resolve against it.
+ruby file: ".ruby-version"
 
-# Pin exactly to the OpenSSL version bundled with Ruby 3.2 (avoids compiling
-# the standalone openssl gem from source on Windows / machines without headers)
-gem "openssl", "3.1.0"
+# Pin to the openssl default gem shipped with the Ruby in .ruby-version so
+# Bundler reuses it instead of compiling (slim Docker image, Windows).
+gem "openssl", "3.3.3"
 
 gem "rails", "~> 7.2.2"
 

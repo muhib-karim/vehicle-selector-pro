@@ -18,9 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No ruby-version input: setup-ruby reads .ruby-version, the same file
+      # the Gemfile, Dockerfile and Dependabot resolve against.
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
           bundler-cache: true
 
       - name: Prepare test database
@@ -38,9 +39,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No ruby-version input: setup-ruby reads .ruby-version, the same file
+      # the Gemfile, Dockerfile and Dependabot resolve against.
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
           bundler-cache: true
 
       - name: Lint
@@ -52,9 +54,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No ruby-version input: setup-ruby reads .ruby-version, the same file
+      # the Gemfile, Dockerfile and Dependabot resolve against.
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
           bundler-cache: true
 
       - name: bundler-audit
