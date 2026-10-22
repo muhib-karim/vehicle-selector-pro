@@ -4,9 +4,13 @@
 
 **Year / Make / Model / Trim / Engine fitment for Shopify stores**
 
-[![License: MIT](https://img.shields.io/github/license/muhib-karim/vehicle-selector-pro)](LICENSE)
-[![Top language](https://img.shields.io/github/languages/top/muhib-karim/vehicle-selector-pro)](https://github.com/muhib-karim/vehicle-selector-pro)
 [![CI](https://github.com/muhib-karim/vehicle-selector-pro/actions/workflows/ci.yml/badge.svg)](https://github.com/muhib-karim/vehicle-selector-pro/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/muhib-karim/vehicle-selector-pro?color=brightgreen)](https://github.com/muhib-karim/vehicle-selector-pro/releases)
+[![Ruby 3.4.11](https://img.shields.io/badge/ruby-3.4.11-CC342D?logo=ruby&logoColor=white)](.ruby-version)
+[![Rails 7.2](https://img.shields.io/badge/rails-7.2-D30001?logo=rubyonrails&logoColor=white)](Gemfile)
+[![License: MIT](https://img.shields.io/github/license/muhib-karim/vehicle-selector-pro?color=brightgreen)](LICENSE)
+
+[Project report](https://muhib-karim.github.io/vehicle-selector-pro/) · [Demo videos](https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html) · [Interactive walkthrough](https://muhib-karim.github.io/vehicle-selector-pro/demo/index.html) · [Architecture diagram](https://muhib-karim.github.io/vehicle-selector-pro/architecture.html) · [Changelog](CHANGELOG.md)
 
 </div>
 
@@ -35,7 +39,16 @@ The app has three parts:
 - **Storefront analytics.** Daily fitment checks, fit rate, and checks-by-make over 7/30/90-day ranges, built from async daily aggregates.
 - **Ops.** `/up` and `/health/deep` health checks, structured JSON logging, Sentry, CSP and security headers, Rack::Attack throttling, encrypted shop tokens.
 
-## Demo
+## Showcase
+
+Two narrated walkthroughs, one per audience. Click a poster to open the video gallery.
+
+<table>
+<tr>
+<td width="50%"><a href="https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html"><img src="demo/vehicle-selector-shopper-poster.jpg" alt="Shopper walkthrough video: picking a vehicle and browsing parts with fitment badges"></a><br><b>Shopper journey</b>: pick a vehicle, browse parts, save it to My Garage.</td>
+<td width="50%"><a href="https://muhib-karim.github.io/vehicle-selector-pro/demo/videos.html"><img src="demo/vehicle-selector-merchant-poster.jpg" alt="Merchant walkthrough video: fitment matrix, bulk import and metafield sync in the admin"></a><br><b>Merchant admin</b>: fitment matrix, bulk CSV import, sync monitor, billing.</td>
+</tr>
+</table>
 
 The screenshots below are captures of the app's `/demo` and `/demo/admin` routes running against the seed data. They are committed under [`demo/autoplay/frames_live/`](demo/autoplay/frames_live).
 
@@ -63,7 +76,7 @@ Narrated walkthrough videos and the project report are published on GitHub Pages
 
 ## Quick start
 
-Requirements: Ruby ≥ 3.2 (CI uses 3.2), Bundler, and SQLite for development. Redis is needed only if you run Sidekiq jobs.
+Requirements: Ruby 3.4.11 (pinned in [`.ruby-version`](.ruby-version); `rbenv`, `asdf`, `mise` and `chruby` all read it), Bundler 2.6, and SQLite for development. Redis is needed only if you run Sidekiq jobs.
 
 ```bash
 git clone https://github.com/muhib-karim/vehicle-selector-pro.git
@@ -100,41 +113,13 @@ Full reference: [docs/API.md](docs/API.md).
 
 ## Architecture
 
-```mermaid
-graph LR
-    subgraph Theme["Shopify theme (Theme App Extension)"]
-        W["vehicle_selector_filter.liquid"]
-        B["product_fitment_badge.liquid"]
-        JS["vehicle-selector.js<br/>(garage in localStorage)"]
-    end
+<a href="https://muhib-karim.github.io/vehicle-selector-pro/architecture.html"><img src="docs/assets/architecture-overview.png" alt="Architecture: theme extension calls the Shopify App Proxy, HMAC-verified AppProxy controllers query FitmentSearchService (Rails.cache, fitment database); merchants use admin controllers that write fitments and enqueue Sidekiq jobs, which push metafields to the Shopify GraphQL Admin API; Shopify webhooks hit HMAC-verified webhook controllers that enqueue jobs" width="100%"></a>
 
-    subgraph Shopify["Shopify platform"]
-        P["App Proxy"]
-        G["GraphQL Admin API"]
-        WH["Webhooks"]
-    end
+Every box in the diagram cites the source lines it came from: open the [interactive version](https://muhib-karim.github.io/vehicle-selector-pro/architecture.html) and select a node to see them. It is generated with Archify from [`docs/architecture.archify.json`](docs/architecture.archify.json).
 
-    subgraph Rails["Rails 7.2 app"]
-        V["AppProxySignatureVerifier"]
-        API["AppProxy controllers<br/>VehicleFilters / Fitments / Garage"]
-        ADM["Admin controllers<br/>fitments, vehicles, imports, billing, analytics"]
-        WC["Webhooks controllers"]
-        J["Sidekiq jobs<br/>metafield sync, webhooks, analytics"]
-        DB[("PostgreSQL / SQLite<br/>Shop, Vehicle, VehicleProductFitment, OeNumber")]
-        C[("Solid Cache")]
-    end
-
-    W --> JS
-    B --> JS
-    JS --> P --> V --> API
-    API --> C
-    API --> DB
-    ADM --> DB
-    ADM -->|enqueue| J
-    J -->|metafieldsSet| G
-    WH --> WC -->|enqueue| J
-    J --> DB
-```
+- **Storefront path:** the theme extension calls `/apps/vehicle-selector/*`. Shopify signs the query, `AppProxy::BaseController` rejects anything whose HMAC does not verify, and `FitmentSearchService` answers from `Rails.cache` (Solid Cache, or Redis when `REDIS_URL` is set) or SQL.
+- **Merchant path:** admin controllers write fitments, then enqueue Sidekiq jobs. `MetafieldSyncService` pushes `custom.vehicle_fitment` through `metafieldsSet` in batches of 25.
+- **Webhooks:** HMAC-verified, de-duplicated by `WebhookDelivery`, processed asynchronously.
 
 Deeper diagrams, the data model, and request lifecycles are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
@@ -149,14 +134,15 @@ Deeper diagrams, the data model, and request lifecycles are in [docs/ARCHITECTUR
 
 ## Testing
 
-The suite has 109 RSpec examples in 22 spec files (models, services, jobs, requests) plus 13 Minitest App Proxy integration tests. These counts come from the test files themselves.
+The suite has 118 RSpec examples in 23 spec files (models, services, jobs, requests, config) plus 13 Minitest App Proxy integration tests. `spec/config/toolchain_consistency_spec.rb` fails if the Gemfile, lockfile, Dockerfile or CI drift from `.ruby-version`.
 
 ```bash
 bundle exec rails db:prepare RAILS_ENV=test
-ruby spec/test_runner.rb          # RSpec + App Proxy integration suite
+ruby spec/test_runner.rb          # RSpec + App Proxy integration; writes coverage/ (SimpleCov)
 bundle exec rails zeitwerk:check  # eager-load check
 bundle exec rubocop               # lint
 bundle audit check --update       # dependency advisories (gem install bundler-audit)
+brakeman                          # static security scan (gem install brakeman)
 ```
 
 Checks that need no Ruby:
@@ -164,9 +150,20 @@ Checks that need no Ruby:
 ```bash
 python3 scripts/check_links.py    # README/docs links; fails on missing local files/anchors
 node --check extensions/vehicle-selector-pro-extension/assets/vehicle-selector.js
+gitleaks git .                    # secret scan over full history
 ```
 
-CI ([`ci.yml`](.github/workflows/ci.yml)) runs all of the above on every push and pull request. Tests use dummy Shopify credentials, so no secrets are needed.
+CI ([`ci.yml`](.github/workflows/ci.yml)) runs on pushes to `main`, `upgrade/**` and `release/**`, on every pull request, and on demand:
+
+| Job | What it checks |
+|---|---|
+| Tests (unit + integration) | Full suite on Ruby 3.4.11 and zeitwerk; uploads the `coverage-report` artifact (line + branch) |
+| RuboCop | Lint, Ruby 3.4 target |
+| Dependency audit | bundler-audit and Brakeman; accepted risks are listed with reasons in [`.bundler-audit.yml`](.bundler-audit.yml) and [`config/brakeman.ignore`](config/brakeman.ignore) |
+| Secret scan | gitleaks over full history; pinned historical false positives in [`.gitleaksignore`](.gitleaksignore) |
+| Docs + storefront JS | Link check, banner SVG, theme-extension JS syntax |
+
+Tests use dummy Shopify credentials, so no secrets are needed. Dependabot ([`dependabot.yml`](.github/dependabot.yml)) opens weekly grouped updates for gems and GitHub Actions, and resolves gems against `.ruby-version`.
 
 ## Project structure
 
@@ -193,7 +190,9 @@ See [PROJECT-STRUCTURE.md](PROJECT-STRUCTURE.md) for the full tree.
 - **Not listed on the Shopify App Store.** It installs as a custom app.
 - **Planned:** supersession chains on top of the OE-number cross-reference, per-model/per-product analytics rollups, and white-label theming with translations.
 
-Release history: [CHANGELOG.md](CHANGELOG.md).
+- **Rails 8 upgrade.** Rails 7.2 left security support on 2026-08-09. No advisories are open against 7.2.3.2, but the Rails 8 upgrade is the next tracked dependency change (see [TASKS.md](TASKS.md)).
+
+Release history: [CHANGELOG.md](CHANGELOG.md). Handoff notes for the v1.0.0 release: [HANDOFF.md](HANDOFF.md).
 
 ## Documentation
 

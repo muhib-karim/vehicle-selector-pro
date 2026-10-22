@@ -160,7 +160,7 @@ Vehicle Selector Pro/
 - Sensitive files are excluded via `.gitignore`
 
 ### Dependencies
-- Ruby 3.2+ required
+- Ruby 3.4.11 required (`.ruby-version`)
 - Rails 7.1+ required
 - PostgreSQL or SQLite for database
 - Redis for background jobs
