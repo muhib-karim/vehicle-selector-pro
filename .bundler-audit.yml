@@ -7,22 +7,9 @@
 # vulnerabilities still break CI — these are the only whitelisted exceptions.
 #
 # When the tracked upgrades land, remove the corresponding entries:
-#   - Rails 7.1.6 -> 7.2.3+ (actionview/activesupport/activestorage advisories)
 #   - shopify_app 22.5 -> 23.0.3+
 #   - puma 6.6 -> 7.2.1+ (or 8.0.2+)
 ignore:
-  # --- Not exploitable: this app does not use Active Storage ---------------
-  # No has_one_attached / has_many_attached anywhere in the app; the gem ships
-  # as part of Rails but the vulnerable code paths (variant processing,
-  # direct uploads, proxy-mode Range requests) are never reached.
-  - GHSA-cg4j-q9v8-6v38   # AS variant processing arbitrary file read/RCE
-  - GHSA-qcfx-2mfw-w4cg   # AS content type bypass via metadata
-  - GHSA-r46p-8f7g-vvvg   # AS DoS via proxy-mode Range requests
-  - GHSA-73f9-jhhh-hr5m   # AS (active_storage) advisory
-  - GHSA-9xrj-h377-fr87   # AS (active_storage) advisory
-  - GHSA-p9fm-f462-ggrg   # AS (active_storage) advisory
-  - GHSA-xr9x-r78c-5hrm   # AS (active_storage) advisory
-
   # --- Not exploitable: Puma PROXY protocol is not enabled ------------------
   # Both advisories only affect `set_remote_address proxy_protocol: :v1`,
   # which config/puma.rb never sets (verified). Fly terminates TLS and talks
@@ -39,6 +26,9 @@ ignore:
   - GHSA-6j52-38f8-qhxr   # shopify_app token-exchange shop context confusion
 
   # --- Resolved by the Rails 7.2.3.2 upgrade (2026-09-01) -------------------
+  # The seven Active Storage advisories that used to be listed here no longer
+  # match 7.2.3.2 either; they were dropped in v1.4.0 after an audit run with
+  # an empty ignore list reported only the puma and shopify_app entries above.
   # GHSA-v55j-83pf-r9cq (actionview XSS), GHSA-89vf-4333-qx8v (activesupport
   # ReDoS) and GHSA-2j26-frm8-cmj9 (activesupport SafeBuffer#% XSS) are all
   # patched in 7.2.3.2 - removed from the ignore list.

@@ -1,4 +1,4 @@
-FROM ruby:3.2-slim
+FROM ruby:3.4.11-slim
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/*
 
 # Install gems first to leverage Docker layer caching.
-COPY Gemfile Gemfile.lock ./
+COPY .ruby-version Gemfile Gemfile.lock ./
 RUN bundle config set --local deployment 'false' && bundle install
 
 COPY . .

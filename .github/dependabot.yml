@@ -8,6 +8,10 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
+    ignore:
+      # Pinned to the default gem of the Ruby in .ruby-version (see Gemfile);
+      # bump it together with .ruby-version, never on its own.
+      - dependency-name: "openssl"
     groups:
       bundler-dependencies:
         patterns:

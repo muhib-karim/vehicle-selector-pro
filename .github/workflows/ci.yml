@@ -2,8 +2,18 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    # Upgrade/release branches get CI before a PR exists.
+    branches: [main, "upgrade/**", "release/**"]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A push to a branch with an open PR runs CI twice; keep only the newest run.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.head.ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -18,9 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No ruby-version input: setup-ruby reads .ruby-version, the same file
+      # the Gemfile, Dockerfile and Dependabot resolve against.
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
           bundler-cache: true
 
       - name: Prepare test database
@@ -28,6 +39,14 @@ jobs:
 
       - name: Full test suite (RSpec + App Proxy integration)
         run: ruby spec/test_runner.rb
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          if-no-files-found: warn
 
       - name: Eager-load check (zeitwerk)
         run: bundle exec rails zeitwerk:check
@@ -38,29 +57,68 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No ruby-version input: setup-ruby reads .ruby-version, the same file
+      # the Gemfile, Dockerfile and Dependabot resolve against.
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
           bundler-cache: true
 
       - name: Lint
         run: bundle exec rubocop
 
   security:
-    name: Dependency audit
+    name: Dependency audit (bundler-audit + Brakeman)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      # No ruby-version input: setup-ruby reads .ruby-version, the same file
+      # the Gemfile, Dockerfile and Dependabot resolve against.
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
           bundler-cache: true
 
       - name: bundler-audit
         run: |
-          gem install bundler-audit --no-document
+          gem install bundler-audit -v 0.9.3 --no-document
           bundle audit check --update
+
+      # Ignored warnings and the reason for each live in config/brakeman.ignore.
+      # Pinned so a new Brakeman release cannot turn unrelated PRs red.
+      - name: Brakeman
+        run: |
+          gem install brakeman -v 8.1.0 --no-document
+          brakeman --quiet --no-pager
+
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks (full history)
+        env:
+          GITLEAKS_VERSION: 8.28.0
+        run: |
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfLO "$base/$tarball"
+          curl -sSfL "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt" | grep " $tarball\$" | sha256sum -c -
+          tar -xzf "$tarball" gitleaks
+          ./gitleaks git --redact --verbose --exit-code 1 .
+
+  docker:
+    name: Docker image build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same image fly deploy builds; catches Dockerfile/Gemfile drift
+      # (e.g. .ruby-version missing from the gem layer) before a deploy does.
+      - name: docker build
+        run: docker build --tag vehicle-selector-pro:ci .
 
   docs-links:
     name: Docs + storefront JS checks

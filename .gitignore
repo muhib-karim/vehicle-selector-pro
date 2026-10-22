@@ -105,3 +105,4 @@ demo/video/audio_tmp/
 # Client-facing report deliverables (generated via scripts/make_reports.py —
 # sent to the client separately, not part of the codebase)
 /out/
+.archify/

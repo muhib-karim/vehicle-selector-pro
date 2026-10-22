@@ -3,54 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Vehicle Selector Pro &mdash; Pitch Deck &amp; Project Report</title>
 <style>
-  :root { --accent:#E04B33; --ink:#282A2E; --muted:#6E6E6E; --paper:#FAF9F8; }
+  :root {
+    --brand:#E04B33;          /* brand rail, decorative only */
+    --accent:#C2381F;         /* brand red darkened to 5.4:1 for text and buttons */
+    --on-accent:#fff;
+    --ink:#282A2E; --muted:#6E6E6E; --paper:#FAF9F8; --surface:#fff; --line:#E4E1DE;
+    --ghost-line:#222;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent:#F08A73; --on-accent:#16181B;
+      --ink:#ECEDEE; --muted:#A7A9AD; --paper:#16181B; --surface:#1F2226; --line:#33373C;
+      --ghost-line:#A7A9AD;
+    }
+  }
   * { box-sizing:border-box; margin:0; padding:0; }
+  ::selection { background:var(--accent); color:var(--on-accent); }
   body { font-family:"Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-         background:linear-gradient(180deg,#ffffff,var(--paper)); color:var(--ink); min-height:100vh; }
-  .rail { height:6px; background:var(--accent); }
+         background:var(--paper); color:var(--ink); min-height:100vh; }
+  .rail { height:6px; background:var(--brand); }
   main { max-width:860px; margin:0 auto; padding:56px 24px 96px; }
-  .kicker { letter-spacing:.14em; text-transform:uppercase; font-size:12px;
-            color:var(--accent); font-weight:700; margin-bottom:14px; }
-  h1 { font-size:38px; line-height:1.1; font-weight:800; letter-spacing:-0.5px; }
-  .sub { color:var(--muted); font-size:16px; margin-top:12px; max-width:60ch; line-height:1.5; }
-  .section-title { margin:44px 0 16px; font-weight:700; font-size:15px; letter-spacing:.04em;
-                   text-transform:uppercase; color:var(--ink); }
+  h1 { font-size:38px; line-height:1.1; font-weight:800; letter-spacing:-0.5px; text-wrap:balance; }
+  .sub { color:var(--muted); font-size:16px; margin-top:12px; max-width:65ch; line-height:1.5; }
+  h2 { margin:48px 0 16px; font-weight:700; font-size:15px; letter-spacing:.04em;
+       text-transform:uppercase; color:var(--ink); }
   .cards { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  .card { border:1px solid #E4E1DE; border-radius:12px; padding:24px; background:#fff;
+  .cards.three { grid-template-columns:repeat(3, 1fr); }
+  .card { border:1px solid var(--line); border-radius:12px; padding:24px; background:var(--surface);
           box-shadow:0 1px 2px rgba(0,0,0,.05); display:flex; flex-direction:column; }
-  .type { text-transform:uppercase; letter-spacing:.1em; font-size:11px; color:var(--muted); font-weight:700; }
+  .type { text-transform:uppercase; letter-spacing:.1em; font-size:12px; color:var(--muted); font-weight:700; }
   .file { font-size:14px; color:var(--ink); margin:12px 0 14px; font-weight:600;
           overflow-wrap:anywhere; line-height:1.4; }
-  .btn { display:inline-block; text-decoration:none; color:#fff; background:var(--accent);
-         padding:10px 16px; border-radius:8px; font-weight:600; font-size:14px;
-         text-align:center; transition:filter .12s; margin-top:auto; }
-  .btn:hover { filter:brightness(.94); }
-  .btn.ghost { color:var(--ink); background:#fff; border:1px solid #222; }
-  .meta { margin-top:48px; border-top:1px solid #E4E1DE; padding-top:20px;
+  .desc { font-size:14px; color:var(--muted); line-height:1.5; margin:-6px 0 16px; }
+  .btn { display:inline-block; text-decoration:none; color:var(--on-accent); background:var(--accent);
+         padding:12px 16px; min-height:44px; border-radius:8px; font-weight:600; font-size:14px;
+         text-align:center; transition:filter .15s cubic-bezier(.16,1,.3,1); margin-top:auto; }
+  .btn:hover { filter:brightness(.92); }
+  .btn.ghost { color:var(--ink); background:var(--surface); border:1px solid var(--ghost-line); }
+  a:focus-visible { outline:3px solid var(--accent); outline-offset:3px; border-radius:8px; }
+  .meta { margin-top:48px; border-top:1px solid var(--line); padding-top:20px;
           color:var(--muted); font-size:13px; line-height:1.8; }
   .meta b { color:var(--ink); }
-  a { color:var(--accent); }
-  @media (max-width:640px){ .cards{ grid-template-columns:1fr; } h1{ font-size:30px; } }
+  a { color:var(--accent); text-underline-offset:3px; }
+  @media (prefers-reduced-motion: reduce) { .btn { transition:none; } }
+  @media (max-width:720px){ .cards, .cards.three { grid-template-columns:1fr; } h1{ font-size:30px; } }
 </style>
 </head>
 <body>
 <div class="rail"></div>
 <main>
-  <div class="kicker">Client Deliverables</div>
   <h1>Vehicle Selector Pro<br>Pitch Deck &amp; Project Report</h1>
   <p class="sub">A production-grade Shopify app for automotive fitment. A polished pitch deck for
   your conversation, and a detailed engineering report for the deep dive &mdash; both built entirely
   with free AI tools, on a 2018 consumer-grade notebook (no GPU, no developer workstation), with no
   paid tooling.</p>
 
-  <div class="section-title">Pitch Deck</div>
+  <h2>Pitch Deck</h2>
   <div class="cards">
     <div class="card">
       <div class="type">View &amp; Share</div>
       <div class="file">Vehicle_Selector_Pro_Pitch_Deck.pdf</div>
-      <a class="btn" href="Vehicle_Selector_Pro_Pitch_Deck.pdf" download>View PDF Deck</a>
+      <a class="btn" href="Vehicle_Selector_Pro_Pitch_Deck.pdf">View PDF Deck</a>
     </div>
     <div class="card">
       <div class="type">Editable</div>
@@ -59,12 +75,12 @@
     </div>
   </div>
 
-  <div class="section-title">Full Project Report</div>
+  <h2>Full Project Report</h2>
   <div class="cards">
     <div class="card">
       <div class="type">Read-Only</div>
       <div class="file">Vehicle_Selector_Pro_Project_Report.pdf</div>
-      <a class="btn" href="Vehicle_Selector_Pro_Project_Report.pdf" download>View PDF Report</a>
+      <a class="btn" href="Vehicle_Selector_Pro_Project_Report.pdf">View PDF Report</a>
     </div>
     <div class="card">
       <div class="type">Editable</div>
@@ -73,9 +89,31 @@
     </div>
   </div>
 
+  <h2>See it work</h2>
+  <div class="cards three">
+    <div class="card">
+      <div class="type">Architecture</div>
+      <p class="file">How a fitment check travels</p>
+      <p class="desc">Interactive diagram: theme extension, App Proxy, HMAC checks, Sidekiq sync to Shopify.</p>
+      <a class="btn" href="architecture.html">Open diagram</a>
+    </div>
+    <div class="card">
+      <div class="type">Videos</div>
+      <p class="file">Narrated walkthroughs</p>
+      <p class="desc">The shopper journey and the merchant admin, start to finish.</p>
+      <a class="btn ghost" href="demo/videos.html">Watch videos</a>
+    </div>
+    <div class="card">
+      <div class="type">Walkthrough</div>
+      <p class="file">Click through the demo</p>
+      <p class="desc">Step through every storefront and admin screen at your own pace.</p>
+      <a class="btn ghost" href="demo/index.html">Start walkthrough</a>
+    </div>
+  </div>
+
   <div class="meta">
     <b>Repository:</b> <a href="https://github.com/muhib-karim/vehicle-selector-pro">github.com/muhib-karim/vehicle-selector-pro</a> ·
-    <b>Live demo:</b> <a href="https://vehicle-selector-pro.fly.dev/demo">vehicle-selector-pro.fly.dev/demo</a><br>
+    <b>Release:</b> <a href="https://github.com/muhib-karim/vehicle-selector-pro/blob/main/CHANGELOG.md">v1.4.0 changelog</a><br>
     Generated with <b>free AI tooling only</b>, on a 2018 ASUS ZenBook UX433FA &mdash; a netbook-class
     consumer laptop (Intel i7-8565U, 16&nbsp;GB RAM, integrated graphics &mdash; no GPU, no developer
     workstation) &mdash; no paid models, tools, or hardware were used in development.

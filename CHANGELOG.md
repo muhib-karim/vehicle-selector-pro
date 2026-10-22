@@ -2,6 +2,59 @@
 
 All notable changes to Vehicle Selector Pro are documented here.
 
+## [1.4.0] - 2026-10-22
+
+CI repair and release-readiness pass. v1.4.0 follows v1.3.0; the existing
+v1.0.0 tag and release (2026-08-30) are left untouched.
+
+### Fixed
+- **Red CI on Dependabot updates.** With no `.ruby-version` and
+  `ruby ">= 3.2.0"` in the Gemfile, Dependabot resolved the lockfile against
+  its own Ruby 4.0 and locked `rbs 4.2.0` (needs Ruby >= 3.3), while CI
+  hard-coded Ruby 3.2, so `bundle install` exited with code 5 in RuboCop,
+  Dependency audit and Tests (run 39296245242).
+
+### Changed
+- **Ruby 3.2 -> 3.4.11**, pinned in `.ruby-version` and read by the Gemfile
+  (`ruby file:`), `ruby/setup-ruby`, the Dockerfile (`ruby:3.4.11-slim`) and
+  Dependabot. Ruby 3.2 reached end of life in 2026.
+- **Lockfile:** `x86_64-linux` platform added, Bundler 2.4.19 -> 2.6.9 (the
+  version Ruby 3.4.11 ships), `openssl` gem pinned to the 3.3.3 default gem
+  so nothing compiles it.
+- RuboCop targets Ruby 3.4.
+- CI also runs on `upgrade/**` and `release/**` pushes and on demand.
+- Pages landing page: architecture, video and walkthrough links replace the
+  dead hosted-demo link; dark mode, visible keyboard focus, AA contrast.
+- README: showcase posters, code-backed architecture diagram, CI job table,
+  Ruby 3.4.11 install notes.
+
+### Added
+- `spec/config/toolchain_consistency_spec.rb`: fails if the running Ruby,
+  Gemfile, lockfile, openssl pin or Dockerfile (`FROM` tag, and copying
+  `.ruby-version` before `bundle install`) drift from `.ruby-version`.
+- Docker image build job in CI; the build would otherwise have broken on the
+  new `ruby file:` Gemfile line, which no CI job exercised.
+- SimpleCov line + branch coverage; CI uploads the `coverage-report` artifact.
+- Brakeman (pinned to 8.1.0) in the Dependency audit job, with reasons for
+  each accepted warning in `config/brakeman.ignore`; bundler-audit pinned to 0.9.3.
+- Dependabot ignores the `openssl` gem, which follows `.ruby-version`.
+- CI: read-only `permissions`, a concurrency group, and gitleaks tarball
+  checksum verification.
+- Secret-scan job (gitleaks 8.28.0, full history); historical dummy-secret
+  hits pinned by fingerprint in `.gitleaksignore`.
+- Interactive architecture diagram (Archify) on GitHub Pages, sourced from
+  `docs/architecture.archify.json`.
+- `HANDOFF.md`, `TASKS.md`, `SKILLS_USED.md`, `docs/PROJECT_BRAIN.md`.
+
+### Removed
+- Seven Active Storage advisory ignores from `.bundler-audit.yml`; none
+  match Rails 7.2.3.2 any more.
+
+### Verification
+- 119 RSpec examples, 0 failures; 13 Minitest integration runs, 0 failures;
+  line coverage 51.1%, branch 51.06%. RuboCop clean, zeitwerk green,
+  bundler-audit and Brakeman clean (with the documented ignores), gitleaks clean.
+
 ## [1.3.2] — 2026-09-01
 
 Presentation and demo-experience polish; catalog wave 4.
@@ -184,4 +237,5 @@ live Shopify development store.
 - Mounted `ShopifyApp::Engine` after application routes so webhook POSTs reach
   the app's controllers instead of raising `NoWebhookHandler`.
 
+[1.4.0]: https://github.com/muhib-karim/vehicle-selector-pro/releases/tag/v1.4.0
 [1.0.0]: https://github.com/muhib-karim/vehicle-selector-pro/releases/tag/v1.0.0

@@ -1,0 +1,47 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "77dc6c45df77d4abd90a78cc1b8d4d4005525a3b88dc13ae56fc2e1a69db75b6",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/services/shopify/graphql_client.rb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "Net::HTTP.new(URI.parse(\"https://#{(shop or Shop.find_by!(:shopify_domain => shop.to_s)).shopify_domain}/admin/api/#{api_version}/graphql.json\").host, URI.parse(\"https://#{(shop or Shop.find_by!(:shopify_domain => shop.to_s)).shopify_domain}/admin/api/#{api_version}/graphql.json\").port)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Shopify::GraphQLClient",
+        "method": "execute_with_retry"
+      },
+      "user_input": "Shop.find_by!(:shopify_domain => shop.to_s)",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "False positive: Net::HTTP.new opens a TLS socket, not a file. The host is Shop#shopify_domain, which is only written from the Shopify-verified OAuth session (Shop.store -> auth_session.shop) or fixed demo/seed constants, so a request cannot choose it."
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 120,
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 7.2.3.2 ended on 2026-08-09",
+      "file": "Gemfile.lock",
+      "line": 239,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
+      "note": "Accepted risk, tracked: Rails 7.2 left security support on 2026-08-09. bundler-audit reports no open Rails advisories against 7.2.3.2; the Rails 8.x upgrade is the next tracked dependency upgrade (see TASKS.md). Remove this entry when it lands."
+    }
+  ],
+  "brakeman_version": "8.1.0"
+}

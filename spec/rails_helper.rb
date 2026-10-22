@@ -3,6 +3,11 @@
 # verification, and JSON responses through the real stack.
 ENV["RAILS_ENV"] ||= "test"
 
+# Coverage must start before the app loads. CI uploads coverage/ as the
+# "coverage-report" artifact.
+require "simplecov"
+SimpleCov.start("rails") { enable_coverage :branch }
+
 require_relative "../config/environment"
 require "rspec/rails"
 

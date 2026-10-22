@@ -207,7 +207,7 @@ GEM
     oj (3.17.6)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
-    openssl (3.1.0)
+    openssl (3.3.3)
     ostruct (0.6.3)
     parallel (1.28.0)
     parser (3.3.12.0)
@@ -429,6 +429,7 @@ GEM
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
   x86_64-linux-gnu
 
 DEPENDENCIES
@@ -447,7 +448,7 @@ DEPENDENCIES
   listen (~> 3.9)
   lograge (~> 0.14)
   oj (~> 3.16)
-  openssl (= 3.1.0)
+  openssl (= 3.3.3)
   pg (~> 1.5)
   polaris_view_components (~> 2.5)
   puma (~> 6.4)
@@ -472,7 +473,7 @@ DEPENDENCIES
   webmock (~> 3.23)
 
 RUBY VERSION
-   ruby 3.2.11p268
+   ruby 3.4.11p137
 
 BUNDLED WITH
-   2.4.19
+   2.6.9
