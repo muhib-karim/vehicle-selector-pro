@@ -2,8 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    # Upgrade/release branches get CI before a PR exists.
+    branches: [main, "upgrade/**", "release/**"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
