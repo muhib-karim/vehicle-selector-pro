@@ -1,0 +1,451 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "Vehicle Selector Pro architecture",
+  "output": ".archify/architecture-vsp-20261022-004151/vehicle-selector-pro-architecture.html",
+  "quality_profile": "showcase",
+  "locale": "en",
+  "repository": {
+   "url": "https://github.com/muhib-karim/vehicle-selector-pro.git",
+   "revision": "7f22ac86b9293e1e06290856ca811d5443d468b1"
+  }
+ },
+ "components": [
+  {
+   "id": "theme",
+   "type": "frontend",
+   "label": "Theme App Extension",
+   "sublabel": "selector JS + garage",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "extensions/vehicle-selector-pro-extension/assets/vehicle-selector.js",
+     "line": 12,
+     "end_line": 15
+    },
+    {
+     "path": "extensions/vehicle-selector-pro-extension/assets/vehicle-selector.js",
+     "line": 28,
+     "end_line": 46
+    }
+   ]
+  },
+  {
+   "id": "proxy",
+   "type": "cloud",
+   "label": "Shopify App Proxy",
+   "sublabel": "/apps/vehicle-selector",
+   "pos": [
+    300,
+    40
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "shopify.app.toml",
+     "line": 58,
+     "end_line": 64
+    },
+    {
+     "path": "config/routes.rb",
+     "line": 59,
+     "end_line": 77
+    }
+   ]
+  },
+  {
+   "id": "appproxy",
+   "type": "security",
+   "label": "AppProxy controllers",
+   "sublabel": "HMAC-verified",
+   "pos": [
+    560,
+    40
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/controllers/app_proxy/base_controller.rb",
+     "line": 1,
+     "end_line": 25
+    },
+    {
+     "path": "app/services/app_proxy_signature_verifier.rb",
+     "line": 1,
+     "end_line": 38
+    }
+   ]
+  },
+  {
+   "id": "search",
+   "type": "backend",
+   "label": "FitmentSearchService",
+   "sublabel": "YMMTE search",
+   "pos": [
+    820,
+    40
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/services/fitment_search_service.rb",
+     "line": 1,
+     "end_line": 20
+    },
+    {
+     "path": "app/services/fitment_search_service.rb",
+     "line": 250,
+     "end_line": 260
+    }
+   ]
+  },
+  {
+   "id": "cache",
+   "type": "database",
+   "label": "Rails.cache",
+   "sublabel": "Solid Cache or Redis",
+   "pos": [
+    1080,
+    40
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "config/environments/production.rb",
+     "line": 14,
+     "end_line": 33
+    }
+   ]
+  },
+  {
+   "id": "db",
+   "type": "database",
+   "label": "Fitment database",
+   "sublabel": "Postgres / SQLite",
+   "pos": [
+    820,
+    190
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "config/database.yml",
+     "line": 1,
+     "end_line": 19
+    },
+    {
+     "path": "app/models/vehicle_product_fitment.rb",
+     "line": 1,
+     "end_line": 20
+    }
+   ]
+  },
+  {
+   "id": "merchant",
+   "type": "external",
+   "label": "Merchant",
+   "sublabel": "embedded admin",
+   "pos": [
+    40,
+    340
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/controllers/admin/base_controller.rb",
+     "line": 1,
+     "end_line": 42
+    }
+   ]
+  },
+  {
+   "id": "admin",
+   "type": "backend",
+   "label": "Admin controllers",
+   "sublabel": "fitments, imports, sync",
+   "pos": [
+    300,
+    340
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/controllers/admin/sync_controller.rb",
+     "line": 10,
+     "end_line": 40
+    },
+    {
+     "path": "app/controllers/admin/bulk_imports_controller.rb",
+     "line": 20,
+     "end_line": 30
+    }
+   ]
+  },
+  {
+   "id": "jobs",
+   "type": "messagebus",
+   "label": "Sidekiq jobs",
+   "sublabel": "sync, webhooks, analytics",
+   "pos": [
+    560,
+    340
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "config/application.rb",
+     "line": 29,
+     "end_line": 29
+    },
+    {
+     "path": "app/jobs/metafields/batch_sync_job.rb",
+     "line": 1,
+     "end_line": 25
+    }
+   ]
+  },
+  {
+   "id": "sync",
+   "type": "backend",
+   "label": "MetafieldSyncService",
+   "sublabel": "batches of 25",
+   "pos": [
+    820,
+    340
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/services/shopify/metafield_sync_service.rb",
+     "line": 1,
+     "end_line": 45
+    },
+    {
+     "path": "app/services/shopify/metafield_sync_service.rb",
+     "line": 150,
+     "end_line": 166
+    }
+   ]
+  },
+  {
+   "id": "gql",
+   "type": "cloud",
+   "label": "GraphQL Admin API",
+   "sublabel": "Shopify",
+   "pos": [
+    1080,
+    340
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/services/shopify/graphql_client.rb",
+     "line": 20,
+     "end_line": 40
+    }
+   ]
+  },
+  {
+   "id": "shopwh",
+   "type": "external",
+   "label": "Shopify webhooks",
+   "sublabel": "products, app, GDPR",
+   "pos": [
+    300,
+    490
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "shopify.app.toml",
+     "line": 28,
+     "end_line": 41
+    }
+   ]
+  },
+  {
+   "id": "wh",
+   "type": "security",
+   "label": "Webhooks controllers",
+   "sublabel": "HMAC + replay guard",
+   "pos": [
+    560,
+    490
+   ],
+   "size": [
+    150,
+    64
+   ],
+   "sources": [
+    {
+     "path": "app/controllers/webhooks/base_controller.rb",
+     "line": 1,
+     "end_line": 79
+    },
+    {
+     "path": "app/controllers/webhooks/products_controller.rb",
+     "line": 1,
+     "end_line": 39
+    }
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "theme-proxy",
+   "from": "theme",
+   "to": "proxy",
+   "label": "fetch JSON",
+   "variant": "emphasis"
+  },
+  {
+   "id": "proxy-appproxy",
+   "from": "proxy",
+   "to": "appproxy",
+   "label": "signed query",
+   "variant": "security"
+  },
+  {
+   "id": "appproxy-search",
+   "from": "appproxy",
+   "to": "search",
+   "label": "find fits",
+   "variant": "emphasis"
+  },
+  {
+   "id": "search-cache",
+   "from": "search",
+   "to": "cache",
+   "label": "fetch"
+  },
+  {
+   "id": "search-db",
+   "from": "search",
+   "to": "db",
+   "label": "SQL"
+  },
+  {
+   "id": "merchant-admin",
+   "from": "merchant",
+   "to": "admin",
+   "label": "HTTPS"
+  },
+  {
+   "id": "admin-db",
+   "from": "admin",
+   "to": "db",
+   "label": "write fitments",
+   "fromSide": "top",
+   "toSide": "left"
+  },
+  {
+   "id": "admin-jobs",
+   "from": "admin",
+   "to": "jobs",
+   "label": "enqueue",
+   "variant": "dashed"
+  },
+  {
+   "id": "jobs-sync",
+   "from": "jobs",
+   "to": "sync",
+   "label": "perform"
+  },
+  {
+   "id": "sync-db",
+   "from": "sync",
+   "to": "db",
+   "label": "read fitments"
+  },
+  {
+   "id": "sync-gql",
+   "from": "sync",
+   "to": "gql",
+   "label": "metafieldsSet"
+  },
+  {
+   "id": "shopwh-wh",
+   "from": "shopwh",
+   "to": "wh",
+   "label": "POST + HMAC",
+   "variant": "security"
+  },
+  {
+   "id": "wh-jobs",
+   "from": "wh",
+   "to": "jobs",
+   "label": "enqueue",
+   "variant": "dashed"
+  }
+ ],
+ "cards": [
+  {
+   "dot": "cyan",
+   "title": "Storefront path",
+   "items": [
+    "Theme JS calls the App Proxy; Shopify signs every query",
+    "Controllers reject bad HMAC before any lookup",
+    "Search results cached per shop version"
+   ]
+  },
+  {
+   "dot": "emerald",
+   "title": "Merchant + sync",
+   "items": [
+    "Admin writes fitments, then enqueues Sidekiq jobs",
+    "Jobs push custom.vehicle_fitment via metafieldsSet",
+    "Throttling and retries live in the GraphQL client"
+   ]
+  },
+  {
+   "dot": "rose",
+   "title": "Security",
+   "items": [
+    "App Proxy and webhooks both verify HMAC-SHA256",
+    "WebhookDelivery blocks replayed webhook ids",
+    "Shop tokens encrypted at rest"
+   ]
+  }
+ ]
+}
