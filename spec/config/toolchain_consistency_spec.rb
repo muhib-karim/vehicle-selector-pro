@@ -22,7 +22,7 @@ RSpec.describe "Ruby toolchain consistency" do
   end
 
   it "locks gems for the Linux platform CI and Docker install on" do
-    expect(lockfile.platforms.map(&:to_s)).to include("x86_64-linux")
+    expect(lockfile.platforms.map(&:to_s)).to include("x86_64-linux").or include("x86_64-linux-gnu")
   end
 
   # shopify_api depends on the openssl gem. Locking the version that ships as
@@ -38,5 +38,15 @@ RSpec.describe "Ruby toolchain consistency" do
   it "builds the Docker image on the pinned Ruby" do
     from = Rails.root.join("Dockerfile").read[/^FROM ruby:(\S+)/, 1]
     expect(from).to eq("#{pinned}-slim")
+  end
+
+  # The Gemfile reads .ruby-version, so the gem layer must copy it before
+  # `bundle install` or the image build fails while parsing the Gemfile.
+  it "copies .ruby-version into the image before bundle install" do
+    dockerfile = Rails.root.join("Dockerfile").read
+    copy = dockerfile.index(/^COPY .*\.ruby-version/)
+    install = dockerfile.index(/^RUN .*bundle install/)
+    expect(copy).not_to be_nil
+    expect(copy).to be < install
   end
 end
