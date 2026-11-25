@@ -12,6 +12,9 @@ updates:
       # Pinned to the default gem of the Ruby in .ruby-version (see Gemfile);
       # bump it together with .ruby-version, never on its own.
       - dependency-name: "openssl"
+      # json >= 3.0 removed the quirks_mode option required by Rails 7.2 ActiveSupport::JSON.
+      - dependency-name: "json"
+        versions: [">= 3.0.0"]
       # Major upgrades (Rails 8, shopify_app 23, puma 7+) are planned work,
       # not routine bumps. Grouped with everything else they kept the weekly
       # PR red, which also blocked the safe updates inside it.
