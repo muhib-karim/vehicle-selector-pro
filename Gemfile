@@ -52,7 +52,7 @@ gem "faraday-retry", "~> 2.0"
 gem "csv", "~> 3.3"
 
 # Server
-gem "puma", "~> 6.4"
+gem "puma", "~> 7.2", ">= 7.2.3"
 
 # Asset pipeline & View styling
 gem "polaris_view_components", "~> 2.5"
