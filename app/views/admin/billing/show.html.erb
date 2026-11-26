@@ -107,9 +107,16 @@
         var label = pendingPlan ? pendingPlan.value.toUpperCase() : "";
         var copy = document.getElementById("demo-billing-copy");
         if (copy && label) {
-          copy.innerHTML = "On your store, this button opens <strong>Shopify's secure plan-confirmation page</strong> for the " +
-            label + " plan. After you approve, the subscription starts with a 14-day free trial and this screen shows " +
-            label + " as current. This public demo has no Shopify admin session, so the checkout step is described here instead of running.";
+          var strong = document.createElement("strong");
+          strong.textContent = "Shopify's secure plan-confirmation page";
+          copy.replaceChildren(
+            document.createTextNode("On your store, this button opens "),
+            strong,
+            document.createTextNode(
+              " for the " + label + " plan. After you approve, the subscription starts with a 14-day free trial and this screen shows " +
+              label + " as current. This public demo has no Shopify admin session, so the checkout step is described here instead of running."
+            )
+          );
         }
         overlay.style.display = "flex";
       }

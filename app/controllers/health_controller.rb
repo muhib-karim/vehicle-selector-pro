@@ -3,8 +3,6 @@
 # external uptime monitors catch degraded states (e.g. Postgres restarting)
 # before merchants do.
 class HealthController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
   def deep
     checks = { database: database_ok?, cache: cache_ok? }
     status = checks.values.all? ? :ok : :service_unavailable

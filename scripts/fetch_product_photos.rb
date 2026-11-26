@@ -90,12 +90,23 @@ rescue StandardError => e
   nil
 end
 
+def strip_html_tags(raw)
+  text = raw.to_s.dup
+  loop do
+    updated = text.gsub(/<[^>]*>/, "")
+    break if updated == text
+
+    text = updated
+  end
+  text.delete("<>").strip[0, 80]
+end
+
 def result_from_info(page, info)
   meta = info["extmetadata"] || {}
   {
     title: page["title"], page_url: info["descriptionurl"],
     download_url: info["thumburl"] || info["url"],
-    artist: meta.dig("Artist", "value").to_s.gsub(/<[^>]+>/, "").strip[0, 80],
+    artist: strip_html_tags(meta.dig("Artist", "value")),
     license: meta.dig("LicenseShortName", "value") || "see source page"
   }
 end

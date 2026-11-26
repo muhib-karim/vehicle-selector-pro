@@ -4,7 +4,7 @@ require "active_support/security_utils"
 
 module Webhooks
   class BaseController < ApplicationController
-    skip_before_action :verify_authenticity_token
+    protect_from_forgery with: :null_session
     before_action :verify_webhook_hmac, unless: -> { Rails.env.local? }
 
     protected

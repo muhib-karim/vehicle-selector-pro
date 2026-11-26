@@ -52,7 +52,9 @@
     EFFECTIVE AUGUST 31, 2026 · VEHICLE SELECTOR PRO
   </p>
   <div class="privacy-content">
-    <%= @privacy_html.html_safe %>
+    <%= sanitize(@privacy_html,
+                 tags: %w[h1 h2 h3 h4 p ul ol li strong em a code pre blockquote br hr table thead tbody tr th td],
+                 attributes: %w[href target rel title class id]) %>
   </div>
   <p class="privacy-footer"><%= link_to "← BACK TO DEMO", demo_path %></p>
 </article>

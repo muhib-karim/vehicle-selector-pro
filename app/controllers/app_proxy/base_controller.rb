@@ -1,6 +1,5 @@
 module AppProxy
   class BaseController < ApplicationController
-    skip_before_action :verify_authenticity_token
     before_action :verify_proxy_signature, unless: -> { Rails.env.development? && params[:skip_proxy_verify] == "true" }
     before_action :set_current_shop
     before_action :set_cache_headers

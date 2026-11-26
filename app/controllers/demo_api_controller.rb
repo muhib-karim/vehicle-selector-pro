@@ -14,7 +14,6 @@
 class DemoApiController < ApplicationController
   include DemoCatalog
 
-  skip_before_action :verify_authenticity_token
   before_action :set_demo_shop
   before_action :set_cache_headers
 
