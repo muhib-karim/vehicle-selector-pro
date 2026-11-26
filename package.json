@@ -1,12 +1,12 @@
 {
   "name": "vehicle-selector-pro",
   "version": "1.0.0",
-  "description": "Vehicle Selector Pro — demo video capture tooling (Puppeteer). The Rails app itself does not require Node; this package is only for generating demo video frames in demo/video.",
+  "description": "Vehicle Selector Pro \u2014 demo video capture tooling (Puppeteer). The Rails app itself does not require Node; this package is only for generating demo video frames in demo/video.",
   "private": true,
   "type": "commonjs",
   "scripts": {
     "capture": "node tmp/video/capture.js",
-    "test": "echo \"No JS tests — run: ruby spec/test_runner.rb\" && exit 0"
+    "test": "echo \"No JS tests \u2014 run: ruby spec/test_runner.rb\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,9 @@
   "homepage": "https://github.com/muhib-karim/vehicle-selector-pro#readme",
   "dependencies": {
     "playwright": "^1.62.1",
-    "puppeteer": "^25.9.0"
+    "puppeteer": "^25.19.0"
   },
   "allowScripts": {
-    "puppeteer@25.9.0": true
+    "puppeteer@25.19.0": true
   }
 }
